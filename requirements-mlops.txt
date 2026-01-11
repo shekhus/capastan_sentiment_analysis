@@ -1,0 +1,17 @@
+# Core ML
+numpy
+pandas
+scikit-learn
+
+# NLP
+nltk
+scipy
+
+# Experiment tracking
+mlflow
+
+# Visualization (safe pin)
+matplotlib<3.9
+
+# Optional
+seaborn
