@@ -182,3 +182,8 @@ demo-user_accessKeys
 
 # Environment variables
 .env
+.env
+*.env
+*accessKey*
+*accessKeys*
+*secret*
