@@ -21,7 +21,9 @@ class s3_operations:
                 "s3",
                 region_name=region
             )
-            logger.info("S3 client initialized using AWS credential provider chain")
+            logger.info(
+                "S3 client initialized using AWS credential provider chain"
+            )
 
         except Exception as e:
             logger.error("Failed to initialize S3 client: %s", e)
@@ -33,7 +35,7 @@ class s3_operations:
         """
         try:
             logger.info(
-                "Fetching file '%s' from bucket '%s'",
+                "Fetching file '%s' from S3 bucket '%s'...",
                 file_key,
                 self.bucket_name
             )
@@ -46,13 +48,23 @@ class s3_operations:
             csv_data = response["Body"].read().decode("utf-8")
             df = pd.read_csv(StringIO(csv_data))
 
-            logger.info("File fetched successfully from S3")
+            # ✅ YOUR REQUIRED LOG MESSAGE (ADDED)
+            logger.info(
+                "Successfully fetched and loaded '%s' from S3 that has %d records.",
+                file_key,
+                len(df)
+            )
+
             return df
 
         except ClientError as e:
-            logger.error("AWS Client error: %s", e)
+            logger.error("AWS Client error while fetching '%s': %s", file_key, e)
             raise
 
         except Exception as e:
-            logger.error("Unexpected error while fetching file from S3: %s", e)
+            logger.error(
+                "Unexpected error while fetching '%s' from S3: %s",
+                file_key,
+                e
+            )
             raise
