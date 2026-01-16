@@ -176,3 +176,9 @@ local_s3/
 
 models/
 data/
+
+
+demo-user_accessKeys
+
+# Environment variables
+.env
