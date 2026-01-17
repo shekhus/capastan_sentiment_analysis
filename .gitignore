@@ -175,7 +175,7 @@ cred.txt
 local_s3/
 
 models/
-# data/
+data/
 
 
 demo-user_accessKeys
