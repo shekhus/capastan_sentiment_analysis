@@ -75,32 +75,33 @@ def normalize_text(text):
 
 # Below code block is for local use
 # -------------------------------------------------------------------------------------
-mlflow.set_tracking_uri(
-    "https://dagshub.com/shekhus/capastan_sentiment_analysis.mlflow"
-)
-dagshub.init(
-    repo_owner="shekhus",
-    repo_name="capastan_sentiment_analysis",
-    mlflow=True
-)
+# mlflow.set_tracking_uri(
+#     "https://dagshub.com/shekhus/capastan_sentiment_analysis.mlflow"
+# )
+# dagshub.init(
+#     repo_owner="shekhus",
+#     repo_name="capastan_sentiment_analysis",
+#     mlflow=True
+# )
 # -------------------------------------------------------------------------------------
 
-# # Below code block is for production use
-# # -------------------------------------------------------------------------------------
-# # Set up DagsHub credentials for MLflow tracking
-# dagshub_token = os.getenv("CAPSTONE_TEST")
-# if not dagshub_token:
-#     raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
+# Below code block is for production use
+# -------------------------------------------------------------------------------------
+# Set up DagsHub credentials for MLflow tracking
+dagshub_token = os.getenv("CAPSTONE_TEST")
+if not dagshub_token:
+    raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
 
-# os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
-# os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
 
-# dagshub_url = "https://dagshub.com"
-# repo_owner = "vikashdas770"
-# repo_name = "YT-Capstone-Project"
-# # Set up MLflow tracking URI
-# mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
-# # -------------------------------------------------------------------------------------
+dagshub_url = "https://dagshub.com"
+repo_owner = "shekhus"
+repo_name = "capastan_sentiment_analysis"
+
+# Set up MLflow tracking URI
+mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
+# -------------------------------------------------------------------------------------
 
 
 # Initialize Flask app
