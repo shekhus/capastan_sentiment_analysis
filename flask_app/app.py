@@ -10,6 +10,8 @@ from nltk.corpus import stopwords
 import string
 import re
 import dagshub
+import os
+import pickle
 
 import warnings
 warnings.simplefilter("ignore", UserWarning)
@@ -128,7 +130,7 @@ PREDICTION_COUNT = Counter(
 model_name = "my_model"
 def get_latest_model_version(model_name):
     client = mlflow.MlflowClient()
-    latest_version = client.get_latest_versions(model_name, stages=["Production"])
+    latest_version = client.get_latest_versions(model_name, stages=["production"])
     if not latest_version:
         latest_version = client.get_latest_versions(model_name, stages=["None"])
     return latest_version[0].version if latest_version else None
@@ -137,11 +139,17 @@ model_version = get_latest_model_version(model_name)
 model_uri = f'models:/{model_name}/{model_version}'
 print(f"Fetching model from: {model_uri}")
 model = mlflow.pyfunc.load_model(model_uri)
+
+
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 VECTORIZER_PATH = os.path.join(PROJECT_ROOT, "models", "vectorizer.pkl")
 
 vectorizer = pickle.load(open(VECTORIZER_PATH, "rb"))
 
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# VECTORIZER_PATH = os.path.join(BASE_DIR, "models", "vectorizer.pkl")
+
+# vectorizer = pickle.load(open(VECTORIZER_PATH, "rb"))
 
 # Routes
 @app.route("/")
